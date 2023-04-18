@@ -16,12 +16,15 @@
 package com.anf.core.servlets;
 
 import com.anf.core.services.ContentService;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -34,6 +37,7 @@ import java.io.IOException;
 public class UserServlet extends SlingSafeMethodsServlet {
 
     private static final long serialVersionUID = 1L;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Reference
     private ContentService contentService;
@@ -41,6 +45,10 @@ public class UserServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(final SlingHttpServletRequest req,
             final SlingHttpServletResponse resp) throws ServletException, IOException {
-        // Make use of ContentService to write the business logic
+    	log.info("Invoking saveuserdetail servlet");
+    	String userData = req.getParameter("userdetails");
+    	if (null!=userData && !userData.isBlank()) {
+			contentService.commitUserDetails(userData);
+		}
     }
 }
