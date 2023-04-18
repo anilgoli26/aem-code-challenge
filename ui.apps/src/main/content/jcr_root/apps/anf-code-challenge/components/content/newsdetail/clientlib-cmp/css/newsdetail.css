@@ -1,0 +1,15 @@
+.container {
+	width: 100%;
+}
+.columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 10%;
+  width: 80%;
+}
+
+.column {
+  flex: 50%;
+}
